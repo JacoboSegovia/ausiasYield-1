@@ -18,21 +18,33 @@ import net.daw.parameter.LenguajeParam;
  *
  * @author al037294
  */
-public class LenguajeRemove2 implements Operation{
+public class LenguajeUpdate1 implements Operation{
+    
+    /**
+     *
+     * @author Alvaro Crego
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Contexto oContexto = (Contexto) request.getAttribute("contexto");
-        oContexto.setVista("jsp/mensaje.jsp");   
-        LenguajeBean oLenguajeBean = new LenguajeBean(); 
+        oContexto.setVista("jsp/lenguaje/form.jsp");
+        LenguajeBean oLenguajeBean;
+        LenguajeDao oLenguajeDao;
+        oLenguajeBean = new LenguajeBean();
         LenguajeParam oLenguajeParam = new LenguajeParam(request);
         oLenguajeBean = oLenguajeParam.loadId(oLenguajeBean);
+        oLenguajeDao = new LenguajeDao(oContexto.getEnumTipoConexion());
         try {
-            LenguajeDao oLenguajeDao = new LenguajeDao(oContexto.getEnumTipoConexion());
-            oLenguajeDao.remove(oLenguajeBean);
+            oLenguajeBean = oLenguajeDao.get(oLenguajeBean);
         } catch (Exception e) {
-            throw new ServletException("LenguajeController: Remove Error: " + e.getMessage());
+            throw new ServletException("lenguajeController: Update Error: Phase 1: " + e.getMessage());
         }
-        String Mensaje = ("Se ha eliminado la información del repositorio con id=" + Integer.toString(oLenguajeBean.getId()));
-        return Mensaje;
+        oLenguajeBean = oLenguajeParam.load(oLenguajeBean);
+        return oLenguajeBean;
     }
+
 }

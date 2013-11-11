@@ -100,4 +100,16 @@ public class LenguajeDao {
         }
         return oLenguajeBean;
     }
+    
+     public void remove(LenguajeBean oLenguajeBean) throws Exception {
+        try {
+            oMysql.conexion(enumTipoConexion);
+            oMysql.removeOne(oLenguajeBean.getId(), "lenguaje");
+            oMysql.desconexion();
+        } catch (Exception e) {
+            throw new Exception("LenguajeDao.removeLenguaje: Error: " + e.getMessage());
+        } finally {
+            oMysql.desconexion();
+        }
+    }
 }
