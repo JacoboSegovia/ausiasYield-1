@@ -22,7 +22,7 @@ public class IncidenciasDao {
         oMysql = new Mysql();
         enumTipoConexion = tipoConexion;
     }
-/*
+
     public int getPages(int intRegsPerPag, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
@@ -54,7 +54,7 @@ public class IncidenciasDao {
         } catch (Exception e) {
             throw new Exception("IncidenciasDao.getPage: Error: " + e.getMessage());
         }
-    }*/
+    }
    /* public ArrayList<IncidenciasBean> getPage(int intRegsPerPag, int intPage, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         ArrayList<Integer> arrId;
         ArrayList<IncidenciasBean> arrProducto = new ArrayList<>();

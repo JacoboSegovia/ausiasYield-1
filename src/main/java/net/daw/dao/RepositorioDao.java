@@ -88,7 +88,7 @@ public class RepositorioDao {
             oMysql.desconexion();
         }
     }
-/*
+
     public int getPages(int intRegsPerPag, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
@@ -122,7 +122,7 @@ public class RepositorioDao {
         } finally {
             oMysql.desconexion();
         }
-    }*/
+    }
 
     public ArrayList<String> getNeighborhood(String strLink, int intPageNumber, int intTotalPages, int intNeighborhood) throws Exception {
         oMysql.conexion(enumTipoConexion);

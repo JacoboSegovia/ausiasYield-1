@@ -75,12 +75,12 @@ public class DocumentoDao {
                     oDocumentoBean.setContenido(oMysql.getOne("documento", "contenido", oDocumentoBean.getId()));
                     //oDocumentoBean.setFecha(oMysql.getOne("documento", "fecha", oDocumentoBean.getId()));
                     oDocumentoBean.setNota(Integer.parseInt(oMysql.getOne("documento", "nota", oDocumentoBean.getId())));
-                    String intIdUsuario = oMysql.getOne("producto", "id_tipoproducto", oDocumentoBean.getId());
-                    if (intIdUsuario != null) {
-                        oDocumentoBean.getUsuario().setId(Integer.parseInt(intIdUsuario));
-                        UsuarioDao oUsuarioDao = new UsuarioDao(enumTipoConexion);
-                        oDocumentoBean.setUsuario(oUsuarioDao.get(oDocumentoBean.getUsuario()));
-                    }
+                   // String intIdUsuario = oMysql.getOne("documento", "id_usuario", oDocumentoBean.getId());
+                   // if (intIdUsuario != null) {
+                    //    oDocumentoBean.getUsuario().setId(Integer.parseInt(intIdUsuario));
+                    //    UsuarioDao oUsuarioDao = new UsuarioDao(enumTipoConexion);
+                    //    oDocumentoBean.setUsuario(oUsuarioDao.get(oDocumentoBean.getUsuario()));
+                   // }
                     oDocumentoBean.setEtiquetas(oMysql.getOne("documento", "etiquetas", oDocumentoBean.getId()));
                 }
             } catch (Exception e) {
