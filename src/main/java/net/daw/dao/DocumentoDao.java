@@ -75,7 +75,12 @@ public class DocumentoDao {
                     oDocumentoBean.setContenido(oMysql.getOne("documento", "contenido", oDocumentoBean.getId()));
                     //oDocumentoBean.setFecha(oMysql.getOne("documento", "fecha", oDocumentoBean.getId()));
                     oDocumentoBean.setNota(Integer.parseInt(oMysql.getOne("documento", "nota", oDocumentoBean.getId())));
-                    oDocumentoBean.setId_usuario(Integer.parseInt(oMysql.getOne("documento", "id_usuario", oDocumentoBean.getId())));
+                    String intIdUsuario = oMysql.getOne("producto", "id_tipoproducto", oDocumentoBean.getId());
+                    if (intIdUsuario != null) {
+                        oDocumentoBean.getUsuario().setId(Integer.parseInt(intIdUsuario));
+                        UsuarioDao oUsuarioDao = new UsuarioDao(enumTipoConexion);
+                        oDocumentoBean.setUsuario(oUsuarioDao.get(oDocumentoBean.getUsuario()));
+                    }
                     oDocumentoBean.setEtiquetas(oMysql.getOne("documento", "etiquetas", oDocumentoBean.getId()));
                 }
             } catch (Exception e) {
@@ -100,7 +105,12 @@ public class DocumentoDao {
             oMysql.updateOne(oDocumentoBean.getId(), "documento", "contenido", oDocumentoBean.getContenido());
             //oMysql.updateOne(oDocumentoBean.getId(), "documento", "fecha", oDocumentoBean.getFecha());
             oMysql.updateOne(oDocumentoBean.getId(), "documento", "nota", Integer.toString(oDocumentoBean.getNota()));
-            oMysql.updateOne(oDocumentoBean.getId(), "documento", "id_usuario", Integer.toString(oDocumentoBean.getId_usuario()));
+            Integer id_usuario = oDocumentoBean.getUsuario().getId();
+            if (id_usuario > 0) {
+                oMysql.updateOne(oDocumentoBean.getId(), "documento", "id_usuario", id_usuario.toString());
+            } else {
+                oMysql.setNull(oDocumentoBean.getId(), "documento", "id_usuario");
+            }
             oMysql.updateOne(oDocumentoBean.getId(), "documento", "etiquetas", oDocumentoBean.getEtiquetas());
             oMysql.commitTrans();
         } catch (Exception e) {

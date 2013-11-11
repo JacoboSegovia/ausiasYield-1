@@ -49,7 +49,7 @@ public class DocumentoParam {
                 oDocumento.setNota(Integer.parseInt(request.getParameter("nota")));
             }
             if ((request.getParameter("id_usuario") != null)) {
-                oDocumento.setId_usuario(Integer.parseInt(request.getParameter("id_usuario")));
+                oDocumento.getUsuario().setId(Integer.parseInt(request.getParameter("id_usuario")));
             }
             if ((request.getParameter("etiquetas") != null)) {
                 oDocumento.setEtiquetas(request.getParameter("etiquetas"));
