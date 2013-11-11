@@ -19,7 +19,7 @@ public class DocumentoBean {
     private String contenido;
     private Date fecha;
     private int nota;
-    private int id_usuario;
+    private UsuarioBean usuario;
     private String etiquetas;
 
     public DocumentoBean() {
@@ -70,20 +70,20 @@ public class DocumentoBean {
         this.nota = nota;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
     public String getEtiquetas() {
         return etiquetas;
     }
 
     public void setEtiquetas(String etiquetas) {
         this.etiquetas = etiquetas;
+    }
+
+    public UsuarioBean getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioBean usuario) {
+        this.usuario = usuario;
     }
     
     

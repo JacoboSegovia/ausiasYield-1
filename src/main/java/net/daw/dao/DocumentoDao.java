@@ -71,10 +71,12 @@ public class DocumentoDao {
                 if (!oMysql.existsOne("documento", oDocumentoBean.getId())) {
                     oDocumentoBean.setId(0);
                 } else {
-                    oDocumentoBean.setNombre(oMysql.getOne("documento", "nombre", oDocumentoBean.getId()));
-                    oDocumentoBean.setApe1(oMysql.getOne("documento", "ape1", oDocumentoBean.getId()));
-                    oDocumentoBean.setApe2(oMysql.getOne("documento", "ape2", oDocumentoBean.getId()));
-                    oDocumentoBean.setEmail(oMysql.getOne("documento", "email", oDocumentoBean.getId()));
+                    oDocumentoBean.setTitulo(oMysql.getOne("documento", "titulo", oDocumentoBean.getId()));
+                    oDocumentoBean.setContenido(oMysql.getOne("documento", "contenido", oDocumentoBean.getId()));
+                    //oDocumentoBean.setFecha(oMysql.getOne("documento", "fecha", oDocumentoBean.getId()));
+                    oDocumentoBean.setNota(Integer.parseInt(oMysql.getOne("documento", "nota", oDocumentoBean.getId())));
+                    oDocumentoBean.setId_usuario(Integer.parseInt(oMysql.getOne("documento", "id_usuario", oDocumentoBean.getId())));
+                    oDocumentoBean.setEtiquetas(oMysql.getOne("documento", "etiquetas", oDocumentoBean.getId()));
                 }
             } catch (Exception e) {
                 throw new Exception("DocumentoDao.getDocumento: Error: " + e.getMessage());
@@ -94,10 +96,12 @@ public class DocumentoDao {
             if (oDocumentoBean.getId() == 0) {
                 oDocumentoBean.setId(oMysql.insertOne("documento"));
             }
-            oMysql.updateOne(oDocumentoBean.getId(), "documento", "nombre", oDocumentoBean.getNombre());
-            oMysql.updateOne(oDocumentoBean.getId(), "documento", "ape1", oDocumentoBean.getApe1());
-            oMysql.updateOne(oDocumentoBean.getId(), "documento", "ape2", oDocumentoBean.getApe2());
-            oMysql.updateOne(oDocumentoBean.getId(), "documento", "email", oDocumentoBean.getEmail());
+            oMysql.updateOne(oDocumentoBean.getId(), "documento", "titulo", oDocumentoBean.getTitulo());
+            oMysql.updateOne(oDocumentoBean.getId(), "documento", "contenido", oDocumentoBean.getContenido());
+            //oMysql.updateOne(oDocumentoBean.getId(), "documento", "fecha", oDocumentoBean.getFecha());
+            oMysql.updateOne(oDocumentoBean.getId(), "documento", "nota", Integer.toString(oDocumentoBean.getNota()));
+            oMysql.updateOne(oDocumentoBean.getId(), "documento", "id_usuario", Integer.toString(oDocumentoBean.getId_usuario()));
+            oMysql.updateOne(oDocumentoBean.getId(), "documento", "etiquetas", oDocumentoBean.getEtiquetas());
             oMysql.commitTrans();
         } catch (Exception e) {
             oMysql.rollbackTrans();
