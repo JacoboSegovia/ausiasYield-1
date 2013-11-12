@@ -36,8 +36,10 @@ public class LenguajeNew2 implements Operation{
         try {
             oLenguajeDao.set(oLenguajeBean);
         } catch (Exception e) {
-            throw new ServletException("ClienteController: Update Error: Phase 2: " + e.getMessage());
+            throw new ServletException("LenguajeController: Update Error: Phase 2: " + e.getMessage());
         }
-        return "Se ha añadido la información del cliente con id=" + Integer.toString(oLenguajeBean.getId());
+        String strMensaje = "Se ha añadido la información del lenguaje con id=" + Integer.toString(oLenguajeBean.getId()) + "<br />";
+        strMensaje += "<a href=\"Controller?class=lenguaje&method=view&id=" + oLenguajeBean.getId() + "\">Ver lenguaje creado en el formulario</a><br />";
+        return strMensaje;
     }
 }
