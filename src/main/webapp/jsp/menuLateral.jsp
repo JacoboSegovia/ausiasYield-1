@@ -10,6 +10,7 @@
     } else {
         menu += "<li>";
     }
+    
     menu += "<a href=\"Controller\">Home</a></li>";
 
     if (!oContexto.getHaySesion()) {
@@ -48,7 +49,25 @@
         }
         menu += "<a href=\"Controller?class=incidencias&method=new\">Nuevo</a></li>";
     }
-   
+
+    if (true) {//modificar permisos  (eliminar)
+        if (oContexto.getClase().equals("incidencias") && oContexto.getMetodo().equals("delete")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=incidencias&method=delete\">Eliminar</a></li>";
+    }
+    
+    if (true) {//modificar permisos (eliminar)
+        if (oContexto.getClase().equals("incidencias") && oContexto.getMetodo().equals("update")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=incidencias&method=update\">Actualizar</a></li>";
+    }
+    
     
     //Repositorio-----------------------
     menu += "<li class=\"nav-header\">Repositorio</li>";
@@ -69,6 +88,24 @@
         }
         menu += "<a href=\"Controller?class=repositorio&method=new\">Nuevo</a></li>";
     }
+
+    if (true) {//modificar permisos  (eliminar)
+        if (oContexto.getClase().equals("repositorio") && oContexto.getMetodo().equals("delete")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=repositorio&method=delete\">Eliminar</a></li>";
+    }
+    
+    if (true) {//modificar permisos (eliminar)
+        if (oContexto.getClase().equals("repositorio") && oContexto.getMetodo().equals("update")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=repositorio&method=update\">Actualizar</a></li>";
+    }
     
     //Estado-----------------------
     menu += "<li class=\"nav-header\">Estado</li>";
@@ -88,7 +125,26 @@
             menu += "<li>";
         }
         menu += "<a href=\"Controller?class=estado&method=new\">Nuevo</a></li>";
-    }    
+    }
+
+    if (true) {//modificar permisos  (eliminar)
+        if (oContexto.getClase().equals("estado") && oContexto.getMetodo().equals("delete")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=estado&method=delete\">Eliminar</a></li>";
+    }
+    
+    if (true) {//modificar permisos (eliminar)
+        if (oContexto.getClase().equals("estado") && oContexto.getMetodo().equals("update")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=estado&method=update\">Actualizar</a></li>";
+    }
+    
     
     //Lenguaje-----------------------
     menu += "<li class=\"nav-header\">Lenguaje</li>";
@@ -109,26 +165,26 @@
         }
         menu += "<a href=\"Controller?class=lenguaje&method=new\">Nuevo</a></li>";
     }
-    
-    //Tipodocumento-----------------------
-    menu += "<li class=\"nav-header\">Lenguaje</li>";
-    if (true) {//modificar permisos
-        if (oContexto.getClase().equals("lenguaje") && oContexto.getMetodo().equals("list")) {
+
+    if (true) {//modificar permisos  (eliminar)
+        if (oContexto.getClase().equals("lenguaje") && oContexto.getMetodo().equals("delete")) {
             menu += "<li class=\"active\">";
         } else {
             menu += "<li>";
         }
-        menu += "<a href=\"Controller?class=tipodocumento&method=list\">Listar</a></li>";
+        menu += "<a href=\"Controller?class=lenguaje&method=delete\">Eliminar</a></li>";
     }
     
-    if (true) {//modificar permisos
-        if (oContexto.getClase().equals("lenguaje") && oContexto.getMetodo().equals("new")) {
+    if (true) {//modificar permisos (eliminar)
+        if (oContexto.getClase().equals("lenguaje") && oContexto.getMetodo().equals("update")) {
             menu += "<li class=\"active\">";
         } else {
             menu += "<li>";
         }
-        menu += "<a href=\"Controller?class=tipodocumento&method=new\">Nuevo</a></li>";
+        menu += "<a href=\"Controller?class=lenguaje&method=update\">Actualizar</a></li>";
     }
+
+
 
     menu += "</ul></div>";
 %>

@@ -8,11 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import net.daw.bean.RepositorioBean;
 import net.daw.data.Mysql;
 import net.daw.helper.Enum;
-import net.daw.helper.FilterBean;
 
 /**
  *
@@ -41,31 +39,20 @@ public class RepositorioDao {
      * @throws Exception
      */
     public RepositorioBean get(RepositorioBean oRepositorioBean) throws Exception {
-        if (oRepositorioBean.getId() > 0) {
-            try {
-                oMysql.conexion(enumTipoConexion);
-                if (!oMysql.existsOne("repositorio", oRepositorioBean.getId())) {
-                    oRepositorioBean.setId(0);
-                } else {
-
-                    oRepositorioBean.setTitulo(oMysql.getOne("repositorio", "titulo", oRepositorioBean.getId()));
-                    oRepositorioBean.setContenido(oMysql.getOne("repositorio", "contenido", oRepositorioBean.getId()));
-                    oRepositorioBean.setId_usuario(Integer.parseInt(oMysql.getOne("repositorio", "id_usuario", oRepositorioBean.getId())));
-                    oRepositorioBean.setId_lenguaje(Integer.parseInt(oMysql.getOne("repositorio", "id_lenguaje", oRepositorioBean.getId())));
-                    oRepositorioBean.setId_documento(Integer.parseInt(oMysql.getOne("repositorio", "id_documento", oRepositorioBean.getId())));
-                    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-                    oRepositorioBean.setFecha(formato.parse(oMysql.getOne("repositorio", "fecha", oRepositorioBean.getId())));
-
-                }
-
-
-            } catch (Exception e) {
-                throw new Exception("RepositorioDao.getRespositorio: Error: " + e.getMessage());
-            } finally {
-                oMysql.desconexion();
-            }
-        } else {
-            oRepositorioBean.setId(0);
+        try {
+            oMysql.conexion(enumTipoConexion);
+            oRepositorioBean.setTitulo(oMysql.getOne("repositorio", "titulo", oRepositorioBean.getId()));
+            oRepositorioBean.setContenido(oMysql.getOne("repositorio", "contenido", oRepositorioBean.getId()));
+            oRepositorioBean.setId_usuario(Integer.parseInt(oMysql.getOne("repositorio", "id_usuario", oRepositorioBean.getId())));
+            oRepositorioBean.setId_lenguaje(Integer.parseInt(oMysql.getOne("repositorio", "id_lenguaje", oRepositorioBean.getId())));
+            oRepositorioBean.setId_documento(Integer.parseInt(oMysql.getOne("repositorio", "id_documento", oRepositorioBean.getId())));
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            oRepositorioBean.setFecha(formato.parse(oMysql.getOne("repositorio", "fecha", oRepositorioBean.getId())));
+            oMysql.desconexion();
+        } catch (Exception e) {
+            throw new Exception("RepositorioDao.getRespositorio: Error: " + e.getMessage());
+        } finally {
+            oMysql.desconexion();
         }
         return oRepositorioBean;
     }
@@ -87,10 +74,9 @@ public class RepositorioDao {
             oMysql.rollbackTrans();
             throw new Exception("RepositorioDao.setRepositorio: Error: " + e.getMessage());
 
-        }
-
+        }      
+    
     }
-
     public void remove(RepositorioBean oRepositorioBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
@@ -103,7 +89,7 @@ public class RepositorioDao {
         }
     }
 
-    public int getPages(int intRegsPerPag, ArrayList<FilterBean> hmFilter, HashMap<String, String> hmOrder) throws Exception {
+    public int getPages(int intRegsPerPag, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
             oMysql.conexion(enumTipoConexion);
@@ -112,13 +98,13 @@ public class RepositorioDao {
             return pages;
         } catch (Exception e) {
             throw new Exception("RepositorioDao.getPages: Error: " + e.getMessage());
-
+            
         } finally {
             oMysql.desconexion();
         }
     }
 
-    public ArrayList<RepositorioBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean> hmFilter, HashMap<String, String> hmOrder) throws Exception {
+    public ArrayList<RepositorioBean> getPage(int intRegsPerPag, int intPage, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         ArrayList<Integer> arrId;
         ArrayList<RepositorioBean> arrProducto = new ArrayList<>();
         try {

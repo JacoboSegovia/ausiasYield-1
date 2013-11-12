@@ -14,7 +14,7 @@ import net.daw.parameter.IncidenciasParam;
 
 /**
  *
- * @author Enrique Gimeno
+ * @author Jacobo
  */
 public class IncidenciasUpdate2 implements Operation {
 

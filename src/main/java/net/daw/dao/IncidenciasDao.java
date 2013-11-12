@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import net.daw.bean.IncidenciasBean;
 import net.daw.data.Mysql;
-import net.daw.helper.FilterBean;
 
 /**
  *
@@ -24,11 +23,11 @@ public class IncidenciasDao {
         enumTipoConexion = tipoConexion;
     }
 
-     public int getPages(int intRegsPerPag, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
+    public int getPages(int intRegsPerPag, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
             oMysql.conexion(enumTipoConexion);
-            pages = oMysql.getPages("incidencias", intRegsPerPag, alFilter, hmOrder);
+            pages = oMysql.getPages("incidencias", intRegsPerPag, hmFilter, hmOrder);
             oMysql.desconexion();
             return pages;
         } catch (Exception e) {
@@ -37,24 +36,23 @@ public class IncidenciasDao {
             oMysql.desconexion();
         }
     }
+
     
-    public ArrayList<IncidenciasBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
+    public ArrayList<IncidenciasBean> getPage(int intRegsPerPag, int intPage,HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         ArrayList<Integer> arrId;
-        ArrayList<IncidenciasBean> arrLenguaje = new ArrayList<>();
+        ArrayList<IncidenciasBean> arrCliente = new ArrayList<>();
         try {
-            oMysql.conexion(enumTipoConexion);
-            arrId = oMysql.getPage("incidencias", intRegsPerPag, intPage, alFilter, hmOrder);
+            oMysql.conexion(enumTipoConexion);           
+            arrId = oMysql.getPage("incidencias", intRegsPerPag, intPage, hmFilter, hmOrder);
             Iterator<Integer> iterador = arrId.listIterator();
             while (iterador.hasNext()) {
-                IncidenciasBean oLenguajeBean = new IncidenciasBean(iterador.next());
-                arrLenguaje.add(this.get(oLenguajeBean));
+                IncidenciasBean oIncidenciasBean = new IncidenciasBean(iterador.next());
+                arrCliente.add(this.get(oIncidenciasBean));
             }
             oMysql.desconexion();
-            return arrLenguaje;
+            return arrCliente;
         } catch (Exception e) {
             throw new Exception("IncidenciasDao.getPage: Error: " + e.getMessage());
-        } finally {
-            oMysql.desconexion();
         }
     }
    /* public ArrayList<IncidenciasBean> getPage(int intRegsPerPag, int intPage, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {

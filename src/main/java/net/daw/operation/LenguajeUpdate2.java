@@ -18,12 +18,11 @@ import net.daw.parameter.LenguajeParam;
  *
  * @author Alvaro
  */
-public class LenguajeNew2 implements Operation{
-    
-    @Override
+public class LenguajeUpdate2 implements Operation{
+     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Contexto oContexto = (Contexto) request.getAttribute("contexto");
-        oContexto.setVista("jsp/mensaje.jsp");
+        oContexto.setVista("jsp/mensaje.jsp");   
         LenguajeBean oLenguajeBean = new LenguajeBean();
         LenguajeDao oLenguajeDao = new LenguajeDao(oContexto.getEnumTipoConexion());
         LenguajeParam oLenguajeParam = new LenguajeParam(request);
@@ -32,7 +31,7 @@ public class LenguajeNew2 implements Operation{
             oLenguajeBean = oLenguajeParam.load(oLenguajeBean);
         } catch (NumberFormatException e) {
             return "Tipo de dato incorrecto en uno de los campos del formulario";
-        }
+        }         
         try {
             oLenguajeDao.set(oLenguajeBean);
         } catch (Exception e) {

@@ -30,4 +30,24 @@ public class UsuarioDao {
             throw new Exception("UsuarioDao.getPage: Error: " + e.getMessage());
         }
     }
+    
+    public UsuarioBean get(UsuarioBean oUsuario) throws Exception {
+        if (oUsuario.getId() > 0) {
+            try {
+                oMysql.conexion(enumTipoConexion);
+                if (!oMysql.existsOne("usuario", oUsuario.getId())) {
+                    oUsuario.setId(0);
+                } else{
+                    oUsuario.setLogin(oMysql.getOne("usuario", "login", oUsuario.getId()));
+                }
+            
+            } catch (Exception e) {
+            throw new Exception("UsuarioDao.get: Error: " + e.getMessage());
+        }
+        }else{
+            oUsuario.setId(0);
+        }
+        return oUsuario;
+        
+    }
 }
