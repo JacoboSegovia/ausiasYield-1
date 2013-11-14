@@ -90,6 +90,26 @@
         menu += "<a href=\"Controller?class=estado&method=new\">Nuevo</a></li>";
     }    
     
+      //Voto Comentario---------------------
+    menu += "<li class=\"nav-header\">Voto_Comentario</li>";
+    if (true) {//modificar permisos
+        if (oContexto.getClase().equals("votoComentario") && oContexto.getMetodo().equals("list")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=votoComentario&method=list\">Listar</a></li>";
+    }
+    
+    if (true) {//modificar permisos
+        if (oContexto.getClase().equals("votoComentario") && oContexto.getMetodo().equals("new")) {
+            menu += "<li class=\"active\">";
+        } else {
+            menu += "<li>";
+        }
+        menu += "<a href=\"Controller?class=votoComentario&method=new\">Nuevo</a></li>";
+    }    
+    
     //Lenguaje-----------------------
     menu += "<li class=\"nav-header\">Lenguaje</li>";
     if (true) {//modificar permisos

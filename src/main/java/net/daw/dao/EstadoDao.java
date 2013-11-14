@@ -4,12 +4,10 @@
  */
 package net.daw.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import net.daw.bean.EstadoBean;
-import net.daw.bean.LenguajeBean;
 import net.daw.data.Mysql;
 import net.daw.helper.FilterBean;
 
@@ -126,7 +124,7 @@ public class EstadoDao {
             oMysql.desconexion();
             return pages;
         } catch (Exception e) {
-            throw new Exception("ClienteDao.getCount: Error: " + e.getMessage());
+            throw new Exception("EstadoDao.getCount: Error: " + e.getMessage());
         }
     }
 }
