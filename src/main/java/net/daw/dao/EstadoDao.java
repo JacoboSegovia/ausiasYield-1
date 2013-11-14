@@ -109,12 +109,6 @@ public class EstadoDao {
         }
     }
 
-    public ArrayList<String> getNeighborhood(String strLink, int intPageNumber, int intTotalPages, int intNeighborhood) throws Exception {
-        oMysql.conexion(enumTipoConexion);
-        ArrayList<String> n = oMysql.getNeighborhood(strLink, intPageNumber, intTotalPages, intNeighborhood);
-        oMysql.desconexion();
-        return n;
-    }
 
     public Integer getCount(ArrayList<FilterBean> alFilter) throws Exception {
         int pages;
