@@ -7,7 +7,7 @@ package net.daw.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import net.daw.bean.IncidenciasBean;
+import net.daw.bean.TipodocumentoBean;
 import net.daw.data.Mysql;
 import net.daw.helper.FilterBean;
 
@@ -16,6 +16,7 @@ import net.daw.helper.FilterBean;
  * @author al037877
  */
 public class TipodocumentoDao {//solo copiado, modificar
+
     private final Mysql oMysql;
     private final net.daw.helper.Enum.Connection enumTipoConexion;
 
@@ -24,58 +25,58 @@ public class TipodocumentoDao {//solo copiado, modificar
         enumTipoConexion = tipoConexion;
     }
 
-     public int getPages(int intRegsPerPag, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
+    public int getPages(int intRegsPerPag, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
             oMysql.conexion(enumTipoConexion);
-            pages = oMysql.getPages("incidencias", intRegsPerPag, alFilter, hmOrder);
+            pages = oMysql.getPages("tipodocumento", intRegsPerPag, alFilter, hmOrder);
             oMysql.desconexion();
             return pages;
         } catch (Exception e) {
-            throw new Exception("IncidenciasDao.getPages: Error: " + e.getMessage());
+            throw new Exception("TipodocumentoDao.getPages: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
         }
     }
-    
-    public ArrayList<IncidenciasBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
+
+    public ArrayList<TipodocumentoBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
         ArrayList<Integer> arrId;
-        ArrayList<IncidenciasBean> arrLenguaje = new ArrayList<>();
+        ArrayList<TipodocumentoBean> arrLenguaje = new ArrayList<>();
         try {
             oMysql.conexion(enumTipoConexion);
-            arrId = oMysql.getPage("incidencias", intRegsPerPag, intPage, alFilter, hmOrder);
+            arrId = oMysql.getPage("tipodocumento", intRegsPerPag, intPage, alFilter, hmOrder);
             Iterator<Integer> iterador = arrId.listIterator();
             while (iterador.hasNext()) {
-                IncidenciasBean oLenguajeBean = new IncidenciasBean(iterador.next());
+                TipodocumentoBean oLenguajeBean = new TipodocumentoBean(iterador.next());
                 arrLenguaje.add(this.get(oLenguajeBean));
             }
             oMysql.desconexion();
             return arrLenguaje;
         } catch (Exception e) {
-            throw new Exception("IncidenciasDao.getPage: Error: " + e.getMessage());
+            throw new Exception("TipodocumentoDao.getPage: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
         }
     }
-   /* public ArrayList<IncidenciasBean> getPage(int intRegsPerPag, int intPage, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
-        ArrayList<Integer> arrId;
-        ArrayList<IncidenciasBean> arrProducto = new ArrayList<>();
-        try {
-            oMysql.conexion(enumTipoConexion);
-            arrId = oMysql.getPage("incidencias", intRegsPerPag, intPage, hmFilter, hmOrder);
-            Iterator<Integer> iterador = arrId.listIterator();
-            while (iterador.hasNext()) {
-                IncidenciasBean oIncidenciasBean = new IncidenciasBean(iterador.next());
-                arrProducto.add(this.get(oIncidenciasBean));
-            }
-            oMysql.desconexion();
-            return arrProducto;
-        } catch (Exception e) {
-            throw new Exception("IncidenciasDao.getPage: Error: " + e.getMessage());
-        } finally {
-            oMysql.desconexion();
-        }
-    }*/
+    /* public ArrayList<TipodocumentoBean> getPage(int intRegsPerPag, int intPage, HashMap<String, String> hmFilter, HashMap<String, String> hmOrder) throws Exception {
+     ArrayList<Integer> arrId;
+     ArrayList<TipodocumentoBean> arrProducto = new ArrayList<>();
+     try {
+     oMysql.conexion(enumTipoConexion);
+     arrId = oMysql.getPage("tipodocumento", intRegsPerPag, intPage, hmFilter, hmOrder);
+     Iterator<Integer> iterador = arrId.listIterator();
+     while (iterador.hasNext()) {
+     TipodocumentoBean oTipodocumentoBean = new TipodocumentoBean(iterador.next());
+     arrProducto.add(this.get(oTipodocumentoBean));
+     }
+     oMysql.desconexion();
+     return arrProducto;
+     } catch (Exception e) {
+     throw new Exception("TipodocumentoDao.getPage: Error: " + e.getMessage());
+     } finally {
+     oMysql.desconexion();
+     }
+     }*/
 
     public ArrayList<String> getNeighborhood(String strLink, int intPageNumber, int intTotalPages, int intNeighborhood) throws Exception {
         oMysql.conexion(enumTipoConexion);
@@ -84,91 +85,96 @@ public class TipodocumentoDao {//solo copiado, modificar
         return n;
     }
 
-   /* public IncidenciasBean get(IncidenciasBean oIncidenciaBean) throws Exception {
-        if (oIncidenciaBean.getId() > 0) {
-            try {
-                oMysql.conexion(enumTipoConexion);
-                oIncidenciaBean.setResumen(oMysql.getOne("incidencias", "resumen", oIncidenciaBean.getId()));
-                oIncidenciaBean.setCambios(oMysql.getOne("incidencias", "cambios", oIncidenciaBean.getId()));
-                oIncidenciaBean.setId_estado(Integer.parseInt(oMysql.getOne("incidencias", "id_estado", oIncidenciaBean.getId())));
-                oIncidenciaBean.setId_repositorio(Integer.parseInt(oMysql.getOne("incidencias", "id_repositorio", oIncidenciaBean.getId())));
-                oIncidenciaBean.setId_usuario(Integer.parseInt(oMysql.getOne("incidencias", "id_usuario", oIncidenciaBean.getId())));
-                oIncidenciaBean.setFechaAlta(oMysql.getOne("incidencias", "fechaalta", oIncidenciaBean.getId()));
-                oIncidenciaBean.setFechaResolucion(oMysql.getOne("incidencias", "fecharesolucion", oIncidenciaBean.getId()));
+    /* public TipodocumentoBean get(TipodocumentoBean oIncidenciaBean) throws Exception {
+     if (oIncidenciaBean.getId() > 0) {
+     try {
+     oMysql.conexion(enumTipoConexion);
+     oIncidenciaBean.setResumen(oMysql.getOne("tipodocumento", "resumen", oIncidenciaBean.getId()));
+     oIncidenciaBean.setCambios(oMysql.getOne("tipodocumento", "cambios", oIncidenciaBean.getId()));
+     oIncidenciaBean.setId_estado(Integer.parseInt(oMysql.getOne("tipodocumento", "id_estado", oIncidenciaBean.getId())));
+     oIncidenciaBean.setId_repositorio(Integer.parseInt(oMysql.getOne("tipodocumento", "id_repositorio", oIncidenciaBean.getId())));
+     oIncidenciaBean.setId_usuario(Integer.parseInt(oMysql.getOne("tipodocumento", "id_usuario", oIncidenciaBean.getId())));
+     oIncidenciaBean.setFechaAlta(oMysql.getOne("tipodocumento", "fechaalta", oIncidenciaBean.getId()));
+     oIncidenciaBean.setFechaResolucion(oMysql.getOne("tipodocumento", "fecharesolucion", oIncidenciaBean.getId()));
                 
-                /*BORRAR MAS ADELANTE SI NO ES NECESARIO
-                String intId_producto = oMysql.getOne("incidencia", "id_tipoproducto", oIncidenciaBean.getId());
-                if (intId_producto != null) {
-                    oIncidenciaBean.getTipoProducto().setId(Integer.parseInt(intId_producto));
-                    TipoproductoDao oTipoproductoDao = new TipoproductoDao(enumTipoConexion);
-                    oIncidenciaBean.setTipoProducto(oTipoproductoDao.get(oIncidenciaBean.getTipoProducto()));
-                }
-                oMysql.desconexion();
-            } catch (Exception e) {
-                throw new Exception("IncidenciasDao.get: Error: " + e.getMessage());
-            } finally {
-                oMysql.desconexion();
-            }
-        }
-        return oIncidenciaBean;
-    }
-    */
-    
-    
-    
-     public IncidenciasBean get(IncidenciasBean oIncidenciasBean) throws Exception {
+     /*BORRAR MAS ADELANTE SI NO ES NECESARIO
+     String intId_producto = oMysql.getOne("incidencia", "id_tipoproducto", oIncidenciaBean.getId());
+     if (intId_producto != null) {
+     oIncidenciaBean.getTipoProducto().setId(Integer.parseInt(intId_producto));
+     TipoproductoDao oTipoproductoDao = new TipoproductoDao(enumTipoConexion);
+     oIncidenciaBean.setTipoProducto(oTipoproductoDao.get(oIncidenciaBean.getTipoProducto()));
+     }
+     oMysql.desconexion();
+     } catch (Exception e) {
+     throw new Exception("TipodocumentoDao.get: Error: " + e.getMessage());
+     } finally {
+     oMysql.desconexion();
+     }
+     }
+     return oIncidenciaBean;
+     }
+     */
+    public TipodocumentoBean get(TipodocumentoBean oTipodocumentoBean) throws Exception {
         try {
-            oMysql.conexion(enumTipoConexion);
-            oIncidenciasBean.setResumen(oMysql.getOne("incidencias", "resumen", oIncidenciasBean.getId()));
-            oIncidenciasBean.setCambios(oMysql.getOne("incidencias", "cambios", oIncidenciasBean.getId()));
-            oIncidenciasBean.setId_estado(Integer.parseInt(oMysql.getOne("incidencias", "id_estado", oIncidenciasBean.getId())));
-            oIncidenciasBean.setId_repositorio(Integer.parseInt(oMysql.getOne("incidencias", "id_repositorio", oIncidenciasBean.getId())));
-            oIncidenciasBean.setId_usuario(Integer.parseInt(oMysql.getOne("incidencias", "id_usuario", oIncidenciasBean.getId())));
-            oIncidenciasBean.setFechaAlta(oMysql.getOne("incidencias", "fechaalta", oIncidenciasBean.getId()));
-            oIncidenciasBean.setFechaResolucion(oMysql.getOne("incidencias", "fecharesolucion", oIncidenciasBean.getId()));
             
+            oMysql.conexion(enumTipoConexion);
+            oTipodocumentoBean.setDescripcion(oMysql.getOne("tipodocumento", "descripcion", oTipodocumentoBean.getId()));
+            //no convierte bien el 1 string a true boolean, lo deja en false, por lo que tengo que consultarlo con if
+            if(oMysql.getOne("tipodocumento", "privado", oTipodocumentoBean.getId()).equals("1")){
+                oTipodocumentoBean.setPrivado(true);
+            }else{
+                oTipodocumentoBean.setPrivado(false);
+            }
+
             oMysql.desconexion();
         } catch (Exception e) {
-            throw new Exception("IncidenciasDao.getRespositorio: Error: " + e.getMessage());
+            throw new Exception("TipodocumentoDao.getRespositorio: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
         }
-        return oIncidenciasBean;
+        return oTipodocumentoBean;
     }
-    public void set(IncidenciasBean oIncidenciasBean) throws Exception {
+
+    public void set(TipodocumentoBean oTipodocumentoBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
             oMysql.initTrans();
-            if (oIncidenciasBean.getId() == 0) {
-                oIncidenciasBean.setId(oMysql.insertOne("incidencias"));
+            if (oTipodocumentoBean.getId() == 0) {
+                oTipodocumentoBean.setId(oMysql.insertOne("tipodocumento"));
             }
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "id", String.valueOf(oIncidenciasBean.getId()));
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "resumen", oIncidenciasBean.getResumen());
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "cambios", oIncidenciasBean.getCambios());
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "id_estado", String.valueOf(oIncidenciasBean.getId_estado()));
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "id_repositorio", String.valueOf(oIncidenciasBean.getId_repositorio()));
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "id_usuario", String.valueOf(oIncidenciasBean.getId_usuario()));
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "fechaalta", oIncidenciasBean.getFechaAlta());
-            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "fecharesolucion", oIncidenciasBean.getFechaResolucion());
+            oMysql.updateOne(oTipodocumentoBean.getId(), "tipodocumento", "descripcion", oTipodocumentoBean.getDescripcion());
+            oMysql.updateOne(oTipodocumentoBean.getId(), "tipodocumento", "privado", Boolean.toString(oTipodocumentoBean.isPrivado()));
             oMysql.commitTrans();
         } catch (Exception e) {
             oMysql.rollbackTrans();
-            throw new Exception("IncidenciasDao.setIncidencias: Error: " + e.getMessage());
+            throw new Exception("TipodocumentoDao.setTipodocumento: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
         }
     }
-    
-    public void remove(IncidenciasBean oIncidenciasBean) throws Exception {
+
+    public void remove(TipodocumentoBean oTipodocumentoBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
-            oMysql.removeOne(oIncidenciasBean.getId(), "incidencias");
+            oMysql.removeOne(oTipodocumentoBean.getId(), "tipodocumento");
             oMysql.desconexion();
         } catch (Exception e) {
-            throw new Exception("IncidenciasDao.remove: Error: " + e.getMessage());
+            throw new Exception("TipodocumentoDao.remove: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
         }
 
+    }
+
+    public Integer getCount(ArrayList<FilterBean> alFilter) throws Exception {
+        int pages;
+        try {
+            oMysql.conexion(enumTipoConexion);
+            pages = oMysql.getCount("tipodocumento", alFilter);
+            oMysql.desconexion();
+            return pages;
+        } catch (Exception e) {
+            throw new Exception("TipodocumentoDao.getCount: Error: " + e.getMessage());
+        }
     }
 }

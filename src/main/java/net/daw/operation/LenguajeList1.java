@@ -20,13 +20,14 @@ import net.daw.helper.Contexto;
  */
 public class LenguajeList1 implements Operation{
     
-     @Override
+    @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Contexto oContexto = (Contexto) request.getAttribute("contexto");
         oContexto.setVista("jsp/lenguaje/list.jsp");
         try {
             LenguajeDao oLenguajeDAO = new LenguajeDao(oContexto.getEnumTipoConexion());
             Integer intPages = oLenguajeDAO.getPages(oContexto.getNrpp(), oContexto.getAlFilter(), oContexto.getHmOrder());
+            Integer intRegisters = oLenguajeDAO.getCount(oContexto.getAlFilter());
             if (oContexto.getPage() >= intPages) {
                 oContexto.setPage(intPages);
             }
@@ -39,6 +40,7 @@ public class LenguajeList1 implements Operation{
             ArrayList<Object> a = new ArrayList<>();
             a.add(listado);
             a.add(vecindad);
+            a.add(intRegisters);
             return a;
         } catch (Exception e) {
             throw new ServletException("LenguajeList1: View Error: " + e.getMessage());

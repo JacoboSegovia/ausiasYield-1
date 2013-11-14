@@ -27,6 +27,7 @@ public class DocumentoList1 implements Operation{
         try {
             DocumentoDao oDocumentoDAO = new DocumentoDao(oContexto.getEnumTipoConexion());
             Integer intPages = oDocumentoDAO.getPages(oContexto.getNrpp(), oContexto.getAlFilter(), oContexto.getHmOrder());
+            Integer intRegisters = oDocumentoDAO.getCount(oContexto.getAlFilter());
             if (oContexto.getPage() >= intPages) {
                 oContexto.setPage(intPages);
             }
@@ -39,6 +40,7 @@ public class DocumentoList1 implements Operation{
             ArrayList<Object> a = new ArrayList<>();
             a.add(listado);
             a.add(vecindad);
+            a.add(intRegisters);
             return a;
         } catch (Exception e) {
             throw new ServletException("DocumentoList1: View Error: " + e.getMessage());

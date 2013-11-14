@@ -19,10 +19,21 @@ public class LenguajeParam {
 
     private HttpServletRequest request;
 
+    /**
+     *
+     * @param request
+     * @throws Exception
+     */
     public LenguajeParam(HttpServletRequest request) throws Exception {
         this.request = request;
     }
 
+    /**
+     *
+     * @param oLenguajeBean
+     * @return
+     * @throws NumberFormatException
+     */
     public LenguajeBean loadId(LenguajeBean oLenguajeBean) throws NumberFormatException {
         try {
             if (request.getParameter("id") != null) {
@@ -36,6 +47,12 @@ public class LenguajeParam {
         return oLenguajeBean;
     }
 
+    /**
+     *
+     * @param oLenguajeBean
+     * @return
+     * @throws NumberFormatException
+     */
     public LenguajeBean load(LenguajeBean oLenguajeBean) throws NumberFormatException {
         try {
             if ((request.getParameter("nombre") != null)) {

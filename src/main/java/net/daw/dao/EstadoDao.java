@@ -16,7 +16,7 @@ import net.daw.helper.FilterBean;
  * @author Diana Ortega
  */
 public class EstadoDao {
-    
+
     private Mysql oMysql;
     private net.daw.helper.Enum.Connection enumTipoConexion;
 
@@ -40,7 +40,7 @@ public class EstadoDao {
     public EstadoBean get(EstadoBean oEstadoBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
-            oEstadoBean.setNombre(oMysql.getOne("estado", "nombre", oEstadoBean.getId()));          
+            oEstadoBean.setNombre(oMysql.getOne("estado", "nombre", oEstadoBean.getId()));
             oMysql.desconexion();
         } catch (Exception e) {
             throw new Exception("EstadoDao.getEstado: Error: " + e.getMessage());
@@ -49,8 +49,8 @@ public class EstadoDao {
         }
         return oEstadoBean;
     }
-    
-      public void set(EstadoBean oEstadoBean) throws Exception {
+
+    public void set(EstadoBean oEstadoBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
             oMysql.initTrans();
@@ -67,7 +67,6 @@ public class EstadoDao {
         }
     }
 
-    
     public void remove(EstadoBean oEstadoBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
@@ -79,7 +78,7 @@ public class EstadoDao {
             oMysql.desconexion();
         }
     }
-    
+
     public int getPages(int intRegsPerPag, ArrayList<FilterBean> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
@@ -92,7 +91,7 @@ public class EstadoDao {
         }
     }
 
-    public ArrayList<EstadoBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean>  hmFilter, HashMap<String, String> hmOrder) throws Exception {
+    public ArrayList<EstadoBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         ArrayList<Integer> arrId;
         ArrayList<EstadoBean> arrEstado = new ArrayList<>();
         try {
@@ -121,11 +120,11 @@ public class EstadoDao {
         int pages;
         try {
             oMysql.conexion(enumTipoConexion);
-            pages = oMysql.getCount("estado",  alFilter);
+            pages = oMysql.getCount("estado", alFilter);
             oMysql.desconexion();
             return pages;
         } catch (Exception e) {
             throw new Exception("EstadoDao.getCount: Error: " + e.getMessage());
         }
     }
-    }
+}

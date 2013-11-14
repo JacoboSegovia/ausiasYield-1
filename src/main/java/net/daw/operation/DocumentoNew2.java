@@ -18,22 +18,21 @@ import net.daw.parameter.DocumentoParam;
  *
  * @author Alvaro
  */
-public class DocumentoNew2 /*implements Operation*/{
-    /*
+public class DocumentoNew2 implements Operation{
+    
     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Contexto oContexto = (Contexto) request.getAttribute("contexto");
-        if ("tipodocumento".equals(oContexto.getSearchingFor())) {
-            oContexto.setVista("jsp/documento/list.jsp");
-            oContexto.setClase("tipodocumento");
+        if ("id_usuario".equals(oContexto.getSearchingFor())) {
+            oContexto.setVista("jsp/usuario/list.jsp");
+            oContexto.setClase("usuario");
             oContexto.setMetodo("list");
             oContexto.setFase("1");
             oContexto.setClaseRetorno("documento");
             oContexto.setMetodoRetorno("new");
             oContexto.setFaseRetorno("1");
-            oContexto.removeParam("id_tipodocumento");
-            TipodocumentoList1 oOperacion = new TipodocumentoList1();
-            return oOperacion.execute(request, response);
+            oContexto.removeParam("id_usuario");
+            return null;
         } else {
             oContexto.setVista("jsp/mensaje.jsp");
             DocumentoBean oDocumentoBean = new DocumentoBean();
@@ -54,5 +53,5 @@ public class DocumentoNew2 /*implements Operation*/{
             strMensaje += "<a href=\"Controller?class=documento&method=view&id=" + oDocumentoBean.getId() + "\">Ver documento creado</a><br />";
             return strMensaje;
         }
-    }*/
+    }
 }

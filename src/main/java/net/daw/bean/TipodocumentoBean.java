@@ -13,6 +13,14 @@ public class TipodocumentoBean {
     private String descripcion;
     private boolean privado;
 
+    public TipodocumentoBean() {
+        
+    }
+
+    public TipodocumentoBean(int id) {
+        this.id = id;
+    }
+    
     public int getId() {
         return id;
     }

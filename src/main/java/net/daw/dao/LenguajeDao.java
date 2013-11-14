@@ -14,22 +14,27 @@ import net.daw.helper.FilterBean;
 
 /**
  *
- * @author al037877
+ * @author Alvaro Crego
  */
 public class LenguajeDao {
-    
+
     private Mysql oMysql;
     private Enum.Connection enumTipoConexion;
-    
+
     /**
-     * 
-     * @param tipoConexion 
+     *
+     * @param tipoConexion
      */
     public LenguajeDao(net.daw.helper.Enum.Connection tipoConexion) {
         oMysql = new Mysql();
         enumTipoConexion = tipoConexion;
     }
-    
+
+    /**
+     *
+     * @param oLenguajeBean
+     * @throws Exception
+     */
     public void set(LenguajeBean oLenguajeBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
@@ -41,12 +46,20 @@ public class LenguajeDao {
             oMysql.commitTrans();
         } catch (Exception e) {
             oMysql.rollbackTrans();
-            throw new Exception("LenguajeDao.setCliente: Error: " + e.getMessage());
+            throw new Exception("LenguajeDao.setLenguaje: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
         }
     }
-    
+
+    /**
+     *
+     * @param intRegsPerPag
+     * @param alFilter
+     * @param hmOrder
+     * @return
+     * @throws Exception
+     */
     public int getPages(int intRegsPerPag, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
@@ -61,6 +74,15 @@ public class LenguajeDao {
         }
     }
 
+    /**
+     *
+     * @param intRegsPerPag
+     * @param intPage
+     * @param alFilter
+     * @param hmOrder
+     * @return
+     * @throws Exception
+     */
     public ArrayList<LenguajeBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean> alFilter, HashMap<String, String> hmOrder) throws Exception {
         ArrayList<Integer> arrId;
         ArrayList<LenguajeBean> arrLenguaje = new ArrayList<>();
@@ -81,27 +103,47 @@ public class LenguajeDao {
         }
     }
 
+    /**
+     *
+     * @param strLink
+     * @param intPageNumber
+     * @param intTotalPages
+     * @param intNeighborhood
+     * @return
+     * @throws Exception
+     */
     public ArrayList<String> getNeighborhood(String strLink, int intPageNumber, int intTotalPages, int intNeighborhood) throws Exception {
         oMysql.conexion(enumTipoConexion);
         ArrayList<String> n = oMysql.getNeighborhood(strLink, intPageNumber, intTotalPages, intNeighborhood);
         oMysql.desconexion();
         return n;
     }
-    
+
+    /**
+     *
+     * @param oLenguajeBean
+     * @return
+     * @throws Exception
+     */
     public LenguajeBean get(LenguajeBean oLenguajeBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
             oLenguajeBean.setNombre(oMysql.getOne("lenguaje", "nombre", oLenguajeBean.getId()));
             oMysql.desconexion();
         } catch (Exception e) {
-            throw new Exception("LenguajeDao.getCliente: Error: " + e.getMessage());
+            throw new Exception("LenguajeDao.getLenguaje: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
         }
         return oLenguajeBean;
     }
-    
-     public void remove(LenguajeBean oLenguajeBean) throws Exception {
+
+    /**
+     *
+     * @param oLenguajeBean
+     * @throws Exception
+     */
+    public void remove(LenguajeBean oLenguajeBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
             oMysql.removeOne(oLenguajeBean.getId(), "lenguaje");
@@ -110,6 +152,24 @@ public class LenguajeDao {
             throw new Exception("LenguajeDao.removeLenguaje: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
+        }
+    }
+
+    /**
+     *
+     * @param hmFilter
+     * @return
+     * @throws Exception
+     */
+    public int getCount(ArrayList<FilterBean> hmFilter) throws Exception {
+        int pages;
+        try {
+            oMysql.conexion(enumTipoConexion);
+            pages = oMysql.getCount("lenguaje", hmFilter);
+            oMysql.desconexion();
+            return pages;
+        } catch (Exception e) {
+            throw new Exception("LenguajeDao.getCount: Error: " + e.getMessage());
         }
     }
 }

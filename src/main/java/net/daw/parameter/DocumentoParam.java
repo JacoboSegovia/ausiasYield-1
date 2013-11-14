@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.daw.parameter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +13,24 @@ import net.daw.bean.DocumentoBean;
  * @author al037294
  */
 public class DocumentoParam {
-    
+
     private final HttpServletRequest request;
 
+    /**
+     *
+     * @param request
+     * @throws Exception
+     */
     public DocumentoParam(HttpServletRequest request) throws Exception {
         this.request = request;
     }
 
+    /**
+     *
+     * @param oDocumento
+     * @return
+     * @throws NumberFormatException
+     */
     public DocumentoBean loadId(DocumentoBean oDocumento) throws NumberFormatException {
         try {
             if (request.getParameter("id") != null) {
@@ -34,6 +44,12 @@ public class DocumentoParam {
         return oDocumento;
     }
 
+    /**
+     *
+     * @param oDocumento
+     * @return
+     * @throws NumberFormatException
+     */
     public DocumentoBean load(DocumentoBean oDocumento) throws NumberFormatException {
         try {
             if ((request.getParameter("titulo") != null)) {
@@ -43,7 +59,7 @@ public class DocumentoParam {
                 oDocumento.setContenido(request.getParameter("contenido"));
             }
             if ((request.getParameter("fecha") != null)) {
-                //oDocumento.setFecha(request.getParameter("fecha"));
+                oDocumento.setFecha(request.getParameter("fecha"));
             }
             if ((request.getParameter("nota") != null)) {
                 oDocumento.setNota(Integer.parseInt(request.getParameter("nota")));

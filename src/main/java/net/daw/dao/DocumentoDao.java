@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.daw.dao;
 
 import java.util.ArrayList;
@@ -15,18 +14,31 @@ import net.daw.helper.FilterBean;
 
 /**
  *
- * @author al037294
+ * @author Alvaro Crego
  */
 public class DocumentoDao {
-    
+
     private final Mysql oMysql;
     private final net.daw.helper.Enum.Connection enumTipoConexion;
 
+    /**
+     *
+     * @param tipoConexion
+     * @throws Exception
+     */
     public DocumentoDao(net.daw.helper.Enum.Connection tipoConexion) throws Exception {
         oMysql = new Mysql();
         enumTipoConexion = tipoConexion;
     }
 
+    /**
+     *
+     * @param intRegsPerPag
+     * @param hmFilter
+     * @param hmOrder
+     * @return
+     * @throws Exception
+     */
     public int getPages(int intRegsPerPag, ArrayList<FilterBean> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         int pages;
         try {
@@ -39,7 +51,16 @@ public class DocumentoDao {
         }
     }
 
-    public ArrayList<DocumentoBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean>  hmFilter, HashMap<String, String> hmOrder) throws Exception {
+    /**
+     *
+     * @param intRegsPerPag
+     * @param intPage
+     * @param hmFilter
+     * @param hmOrder
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<DocumentoBean> getPage(int intRegsPerPag, int intPage, ArrayList<FilterBean> hmFilter, HashMap<String, String> hmOrder) throws Exception {
         ArrayList<Integer> arrId;
         ArrayList<DocumentoBean> arrDocumento = new ArrayList<>();
         try {
@@ -57,6 +78,15 @@ public class DocumentoDao {
         }
     }
 
+    /**
+     *
+     * @param strLink
+     * @param intPageNumber
+     * @param intTotalPages
+     * @param intNeighborhood
+     * @return
+     * @throws Exception
+     */
     public ArrayList<String> getNeighborhood(String strLink, int intPageNumber, int intTotalPages, int intNeighborhood) throws Exception {
         oMysql.conexion(enumTipoConexion);
         ArrayList<String> n = oMysql.getNeighborhood(strLink, intPageNumber, intTotalPages, intNeighborhood);
@@ -64,6 +94,12 @@ public class DocumentoDao {
         return n;
     }
 
+    /**
+     *
+     * @param oDocumentoBean
+     * @return
+     * @throws Exception
+     */
     public DocumentoBean get(DocumentoBean oDocumentoBean) throws Exception {
         if (oDocumentoBean.getId() > 0) {
             try {
@@ -73,14 +109,14 @@ public class DocumentoDao {
                 } else {
                     oDocumentoBean.setTitulo(oMysql.getOne("documento", "titulo", oDocumentoBean.getId()));
                     oDocumentoBean.setContenido(oMysql.getOne("documento", "contenido", oDocumentoBean.getId()));
-                    //oDocumentoBean.setFecha(oMysql.getOne("documento", "fecha", oDocumentoBean.getId()));
+                    oDocumentoBean.setFecha(oMysql.getOne("documento", "fecha", oDocumentoBean.getId()));
                     oDocumentoBean.setNota(Integer.parseInt(oMysql.getOne("documento", "nota", oDocumentoBean.getId())));
                    // String intIdUsuario = oMysql.getOne("documento", "id_usuario", oDocumentoBean.getId());
-                   // if (intIdUsuario != null) {
+                    // if (intIdUsuario != null) {
                     //    oDocumentoBean.getUsuario().setId(Integer.parseInt(intIdUsuario));
                     //    UsuarioDao oUsuarioDao = new UsuarioDao(enumTipoConexion);
                     //    oDocumentoBean.setUsuario(oUsuarioDao.get(oDocumentoBean.getUsuario()));
-                   // }
+                    // }
                     oDocumentoBean.setEtiquetas(oMysql.getOne("documento", "etiquetas", oDocumentoBean.getId()));
                 }
             } catch (Exception e) {
@@ -94,6 +130,11 @@ public class DocumentoDao {
         return oDocumentoBean;
     }
 
+    /**
+     *
+     * @param oDocumentoBean
+     * @throws Exception
+     */
     public void set(DocumentoBean oDocumentoBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
@@ -103,14 +144,14 @@ public class DocumentoDao {
             }
             oMysql.updateOne(oDocumentoBean.getId(), "documento", "titulo", oDocumentoBean.getTitulo());
             oMysql.updateOne(oDocumentoBean.getId(), "documento", "contenido", oDocumentoBean.getContenido());
-            //oMysql.updateOne(oDocumentoBean.getId(), "documento", "fecha", oDocumentoBean.getFecha());
+            oMysql.updateOne(oDocumentoBean.getId(), "documento", "fecha", oDocumentoBean.getFecha());
             oMysql.updateOne(oDocumentoBean.getId(), "documento", "nota", Integer.toString(oDocumentoBean.getNota()));
-            Integer id_usuario = oDocumentoBean.getUsuario().getId();
-            if (id_usuario > 0) {
-                oMysql.updateOne(oDocumentoBean.getId(), "documento", "id_usuario", id_usuario.toString());
-            } else {
-                oMysql.setNull(oDocumentoBean.getId(), "documento", "id_usuario");
-            }
+            //Integer id_usuario = oDocumentoBean.getUsuario().getId();
+           // if (id_usuario > 0) {
+           //     oMysql.updateOne(oDocumentoBean.getId(), "documento", "id_usuario", id_usuario.toString());
+           // } else {
+           //     oMysql.setNull(oDocumentoBean.getId(), "documento", "id_usuario");
+          //  }
             oMysql.updateOne(oDocumentoBean.getId(), "documento", "etiquetas", oDocumentoBean.getEtiquetas());
             oMysql.commitTrans();
         } catch (Exception e) {
@@ -121,6 +162,11 @@ public class DocumentoDao {
         }
     }
 
+    /**
+     *
+     * @param oDocumentoBean
+     * @throws Exception
+     */
     public void remove(DocumentoBean oDocumentoBean) throws Exception {
         try {
             oMysql.conexion(enumTipoConexion);
@@ -130,6 +176,24 @@ public class DocumentoDao {
             throw new Exception("DocumentoDao.removeDocumento: Error: " + e.getMessage());
         } finally {
             oMysql.desconexion();
+        }
+    }
+
+    /**
+     *
+     * @param hmFilter
+     * @return
+     * @throws Exception
+     */
+    public int getCount(ArrayList<FilterBean> hmFilter) throws Exception {
+        int pages;
+        try {
+            oMysql.conexion(enumTipoConexion);
+            pages = oMysql.getCount("documento", hmFilter);
+            oMysql.desconexion();
+            return pages;
+        } catch (Exception e) {
+            throw new Exception("DocumentoDao.getCount: Error: " + e.getMessage());
         }
     }
 }
