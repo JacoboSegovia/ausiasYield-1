@@ -22,7 +22,7 @@ public class Contexto {
 
     private Boolean haySesion;
     private UsuarioBean userBeanSession;
-
+ 
     private Enum.Connection enumTipoConexion;
 
     private void set(String strParam, String strValue) {

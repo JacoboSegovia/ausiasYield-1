@@ -38,7 +38,7 @@
         <input type="hidden" name="method" value="<%=oContexto.getMetodo()%>" /> 
         <input type="hidden" name="phase" value="2" />
         <div>
-            <label for="nombre">Titulo: </label> 
+            <label for="nombre">Nombre: </label> 
             <input <%=strControlEnabled%> id="nombre" name="nombre" type="text" size="30" maxlength="50" autofocus="autofocus" value="<%=nombre%>" /><br />
         </div>
         <div>

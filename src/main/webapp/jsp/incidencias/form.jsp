@@ -6,6 +6,7 @@
 <%@page import="java.util.Calendar"%>
 <%@page import="net.daw.bean.IncidenciasBean"%>
 <%@page import="net.daw.helper.Contexto"%>
+<%@page import="net.daw.bean.IncidenciasBean"%>
 <% Contexto oContexto = (Contexto) request.getAttribute("contexto");
     String strTitulo = "";
     String strControlEnabled = "";
@@ -120,5 +121,5 @@
         <div>
             <input type="submit" name="enviar" value="<%=strValueBoton%>" />
         </div>
-    </fieldset>
+    </div>
 </form>

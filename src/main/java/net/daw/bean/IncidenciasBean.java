@@ -72,6 +72,23 @@ public class IncidenciasBean {
         this.usuario = usuario;
     }
 
+    public RepositorioBean getRepositorio() {
+        return repositorio;
+    }
+
+    public void setRepositorio(RepositorioBean repositorio) {
+        this.repositorio = repositorio;
+    }
+
+    public UsuarioBean getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioBean usuario) {
+        this.usuario = usuario;
+    }
+   
+
     public String getResumen() {
         return resumen;
     }
