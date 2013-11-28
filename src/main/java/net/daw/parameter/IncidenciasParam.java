@@ -4,6 +4,8 @@
  */
 package net.daw.parameter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.IncidenciasBean;
@@ -33,7 +35,7 @@ public class IncidenciasParam {
         return oIncidencias;
     }
 
-    public IncidenciasBean load(IncidenciasBean oIncidencias) throws NumberFormatException {
+    public IncidenciasBean load(IncidenciasBean oIncidencias) throws NumberFormatException, ParseException {
         try {
             if ((request.getParameter("id") != null)) {
                 oIncidencias.setId(Integer.parseInt(request.getParameter("id")));
@@ -55,13 +57,14 @@ public class IncidenciasParam {
             if ((request.getParameter("id_usuario") != null)) {
                 oIncidencias.getUsuario().setId(Integer.parseInt(request.getParameter("id_usuario")));
             }
-
-
-            if ((request.getParameter("fechaAlta") != null)) {
-                oIncidencias.setFechaAlta(request.getParameter("fechaAlta"));
+            
+           
+           if ((request.getParameter("fechaAlta") != null)) {
+                oIncidencias.setFechaAlta(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fechaAlta")));
             }
+           
             if ((request.getParameter("fechaResolucion") != null)) {
-                oIncidencias.setFechaResolucion(request.getParameter("fechaResolucion"));
+                oIncidencias.setFechaResolucion(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fechaResolucion")));
             }
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Controller: Error: Load: Formato de datos en parámetros incorrecto " + e.getMessage());

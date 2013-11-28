@@ -4,7 +4,9 @@
  */
 package net.daw.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import net.daw.bean.RepositorioBean;
@@ -80,7 +82,7 @@ public class IncidenciasDao {
             oMysql.conexion(enumTipoConexion);
 
             EstadoBean oEstadoBean = new EstadoBean();
-            RepositorioBean oRepositorioBean = new RepositorioBean();
+           RepositorioBean oRepositorioBean = new RepositorioBean();
             UsuarioBean oUsuarioBean = new UsuarioBean();
 
             oEstadoBean.setId(Integer.parseInt(oMysql.getOne("incidencias", "id_estado", oIncidenciasBean.getId())));
@@ -89,8 +91,22 @@ public class IncidenciasDao {
 
             oIncidenciasBean.setResumen(oMysql.getOne("incidencias", "resumen", oIncidenciasBean.getId()));
             oIncidenciasBean.setCambios(oMysql.getOne("incidencias", "cambios", oIncidenciasBean.getId()));
-            oIncidenciasBean.setFechaAlta(oMysql.getOne("incidencias", "fechaalta", oIncidenciasBean.getId()));
-            oIncidenciasBean.setFechaResolucion(oMysql.getOne("incidencias", "fecharesolucion", oIncidenciasBean.getId()));
+           String strFechaAlta = oMysql.getOne("incidencias", "fechaAlta", oIncidenciasBean.getId());
+            if (strFechaAlta!=null) {
+                Date dFechaAlta = new SimpleDateFormat("yyyy-MM-dd").parse(strFechaAlta);
+                oIncidenciasBean.setFechaAlta(dFechaAlta);
+            } else {
+                oIncidenciasBean.setFechaAlta(new Date(0));
+            }
+            
+              String strFechaResolucion = oMysql.getOne("incidencias", "fechaResolucion", oIncidenciasBean.getId());
+            if (strFechaResolucion!=null) {
+                Date dFechaResolucion = new SimpleDateFormat("yyyy-MM-dd").parse(strFechaResolucion);
+                oIncidenciasBean.setFechaResolucion(dFechaResolucion);
+            } else {
+                oIncidenciasBean.setFechaResolucion(new Date(0));
+            }
+
 
 
 
@@ -133,6 +149,9 @@ public class IncidenciasDao {
 
             oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "resumen", oIncidenciasBean.getResumen());
             oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "cambios", oIncidenciasBean.getCambios());
+            java.text.SimpleDateFormat oSimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "fechaAlta", oSimpleDateFormat.format(oIncidenciasBean.getFechaAlta()));
+            oMysql.updateOne(oIncidenciasBean.getId(), "incidencias", "fechaResolucion", oSimpleDateFormat.format(oIncidenciasBean.getFechaResolucion()));
             oMysql.commitTrans();
         } catch (Exception e) {
             oMysql.rollbackTrans();

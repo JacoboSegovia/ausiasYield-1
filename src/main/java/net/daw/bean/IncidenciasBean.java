@@ -4,28 +4,40 @@
  */
 package net.daw.bean;
 
+import java.util.Date;
+
 /**
  *
  * @author al037877
  */
 public class IncidenciasBean {
+
     private int id = 0;
     private EstadoBean estado = null;
     private RepositorioBean repositorio = null;
     private UsuarioBean usuario = null;
     private String resumen = "";
     private String cambios = "";
-    private int id_estado = 0;
-    private int id_repositorio = 0;
-    private String fechaAlta = "";
-    private String fechaResolucion = "";
-    
+    private Date fechaAlta = new Date();
+    private Date fechaResolucion = new Date();
+
     public IncidenciasBean(int id) {
+        this.estado = new EstadoBean();
+        this.estado.setId(0);
+        this.repositorio = new RepositorioBean();
+        this.repositorio.setId(0);
+        this.usuario = new UsuarioBean();
+        this.usuario.setId(0);
         this.id = id;
     }
 
     public IncidenciasBean() {
-        
+        this.estado = new EstadoBean();
+        this.estado.setId(0);
+        this.repositorio = new RepositorioBean();
+        this.repositorio.setId(0);
+        this.usuario = new UsuarioBean();
+        this.usuario.setId(0);
     }
 
     public int getId() {
@@ -59,7 +71,6 @@ public class IncidenciasBean {
     public void setUsuario(UsuarioBean usuario) {
         this.usuario = usuario;
     }
-   
 
     public String getResumen() {
         return resumen;
@@ -77,38 +88,19 @@ public class IncidenciasBean {
         this.cambios = cambios;
     }
 
-    public int getId_estado() {
-        return id_estado;
-    }
-
-    public void setId_estado(int id_estado) {
-        this.id_estado = id_estado;
-    }
-
-    public int getId_repositorio() {
-        return id_repositorio;
-    }
-
-    public void setId_repositorio(int id_repositorio) {
-        this.id_repositorio = id_repositorio;
-    }
-
-    public String getFechaAlta() {
+    public Date getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(String fechaAlta) {
+    public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
-    public String getFechaResolucion() {
+    public Date getFechaResolucion() {
         return fechaResolucion;
     }
 
-    public void setFechaResolucion(String fechaResolucion) {
+    public void setFechaResolucion(Date fechaResolucion) {
         this.fechaResolucion = fechaResolucion;
     }
-    
-    
-    
 }
