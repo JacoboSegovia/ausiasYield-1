@@ -20,7 +20,7 @@ public class IncidenciasView2 implements Operation{
         oContexto.setClase("incidencias");
         oContexto.setMetodo("list");
         oContexto.setFase("1");
-        LenguajeList1 oOperacion = new LenguajeList1();
+        IncidenciasList1 oOperacion = new IncidenciasList1();
         return oOperacion.execute(request, response);
     }
     
