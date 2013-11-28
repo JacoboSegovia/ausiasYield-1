@@ -43,14 +43,14 @@ public class DocumentoNew2 implements Operation{
             try {
                 oDocumentoBean = oDocumentoParam.load(oDocumentoBean);
             } catch (NumberFormatException e) {
-                return "Tipo de dato incorrecto en uno de los campos del formulario";
+                return "<div class=\"alert alert-error\">Tipo de dato incorrecto en uno de los campos del formulario</div>";
             }
             try {
                 oDocumentoDao.set(oDocumentoBean);
             } catch (Exception e) {
                 throw new ServletException("DocumentoController: Update Error: Phase 2: " + e.getMessage());
             }
-            String strMensaje = "Se ha añadido la información del documento con id=" + Integer.toString(oDocumentoBean.getId()) + "<br />";            
+            String strMensaje = "<div class=\"alert alert-success\">Se ha añadido la información del documento con id=" + Integer.toString(oDocumentoBean.getId()) + "</div>";            
             strMensaje += "<a href=\"Controller?class=documento&method=view&id=" + oDocumentoBean.getId() + "\">Ver documento creado</a><br />";
             return strMensaje;
         }

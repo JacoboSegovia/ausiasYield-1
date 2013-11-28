@@ -5,12 +5,16 @@
  */
 package net.daw.parameter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.RepositorioBean;
+import net.daw.helper.TextParser;
 
 /**
  *
@@ -37,13 +41,15 @@ public class RepositorioParam {
         return oRepositorioBean;
     }
 
-    public RepositorioBean load(RepositorioBean oRepositorioBean) throws NumberFormatException, ParseException {
+    public RepositorioBean load(RepositorioBean oRepositorioBean) throws NumberFormatException, ParseException, UnsupportedEncodingException, ServletException {
         try {
             if ((request.getParameter("titulo") != null)) {
                 oRepositorioBean.setTitulo(request.getParameter("titulo"));
             }
             if ((request.getParameter("contenido") != null)) {
-                oRepositorioBean.setContenido(request.getParameter("contenido"));
+                //rafael tocar
+                oRepositorioBean.setContenido(TextParser.textEncode(request.getParameter("contenido")));
+                
             }
             if ((request.getParameter("id_usuario") != null)) {
                 oRepositorioBean.getUsuario().setId(Integer.parseInt(request.getParameter("id_usuario")));

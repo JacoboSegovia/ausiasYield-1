@@ -1,4 +1,6 @@
 
+<%@page import="java.util.Arrays"%>
+<%@page import="net.daw.helper.TextParser"%>
 <%@page import="net.daw.helper.FilterBean"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -165,11 +167,17 @@
     <%        while (oIterador.hasNext()) {
             RepositorioBean oRepositorioBean = oIterador.next();
             DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            String contenido = "";
+            if (oRepositorioBean.getContenido().length() >= 30) {
+                contenido = oRepositorioBean.getContenido().substring(0, 30) + "... <a href=\"Controller?class=repositorio&method=view&id=" + oRepositorioBean.getId() + "\">Ver más</a>";
+            } else {
+                contenido = oRepositorioBean.getContenido();
+            }
     %>
     <tr>
         <td><%=oRepositorioBean.getId()%></td>
         <td><%=oRepositorioBean.getTitulo()%></td>
-        <td><%=oRepositorioBean.getContenido()%></td>
+        <td><%=contenido%></td>
         <td>
             <%=oRepositorioBean.getUsuario().getLogin()%> (<%=oRepositorioBean.getUsuario().getId()%>)
             <div class="btn-group">
@@ -191,9 +199,15 @@
         <td>
             <div class="btn-toolbar">
                 <div class="btn-group">                    
-                    <a class="btn btn-mini" href="Controller?class=repositorio&method=view&id=<%=oRepositorioBean.getId()%>"><i class="icon-eye-open"></i></a>                    
-                    <a class="btn btn-mini" href="Controller?class=repositorio&method=update&id=<%=oRepositorioBean.getId()%>"><i class="icon-pencil"></i></a>           
-                    <a class="btn btn-mini" href="Controller?class=repositorio&method=remove&id=<%=oRepositorioBean.getId()%>"><i class="icon-trash"></i></a>                         
+                   <%
+                        if (oContexto.getSearchingFor().equals("repositorio")) {
+                            out.print("<a class=\"btn btn-mini\" href=\"Controller?" + oContexto.getSerializedParamsExcept(new ArrayList<String>(Arrays.asList("class", "method", "phase", "id_repositorio", "id", "returnclass", "returnmethod", "returnphase", "searchingfor"))) + "class=" + oContexto.getClaseRetorno() + "&method=" + oContexto.getMetodoRetorno() + "&phase=" + oContexto.getFaseRetorno() + "&id_documento=" + oRepositorioBean.getId() + "&id=" + oContexto.getId() + "\"><i class=\"icon-ok\"></i></a>");
+                        } else {
+                            out.print("<a class=\"btn btn-mini\" href=\"Controller?class=repositorio&method=view&id=" + oRepositorioBean.getId() + "\"><i class=\"icon-eye-open\"></i></a>");
+                            out.print("<a class=\"btn btn-mini\" href=\"Controller?class=repositorio&method=update&id=" + oRepositorioBean.getId() + "\"><i class=\"icon-pencil\"></i></a>");
+                            out.print("<a class=\"btn btn-mini\" href=\"Controller?class=repositorio&method=remove&id=" + oRepositorioBean.getId() + "\"><i class=\"icon-trash\"></i></a>");
+                        }
+                    %>    
                 </div>
             </div>
         </td>

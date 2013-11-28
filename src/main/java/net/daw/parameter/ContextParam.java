@@ -5,9 +5,11 @@
  */
 package net.daw.parameter;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.UsuarioBean;
 import net.daw.helper.Contexto;
@@ -35,7 +37,7 @@ public class ContextParam {
         return oContexto;
     }
 
-    public Contexto load(Contexto oContexto) throws NumberFormatException {
+    public Contexto load(Contexto oContexto) throws NumberFormatException, UnsupportedEncodingException, ServletException {
         try {
             HashMap<String, String> parameterNames = new HashMap<>();
             Enumeration enumeration = request.getParameterNames();

@@ -1,9 +1,12 @@
 package net.daw.helper;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import javax.servlet.ServletException;
 import net.daw.bean.UsuarioBean;
 
 public class Contexto {
@@ -19,7 +22,7 @@ public class Contexto {
 
     private Boolean haySesion;
     private UsuarioBean userBeanSession;
- 
+
     private Enum.Connection enumTipoConexion;
 
     private void set(String strParam, String strValue) {
@@ -270,7 +273,14 @@ public class Contexto {
         return parameters;
     }
 
-    public void setParameters(HashMap<String, String> parameters) {
+    public void setParameters(HashMap<String, String> parameters) throws UnsupportedEncodingException, ServletException {
+
+        if (parameters.get("contenido") != null) {
+            String text = TextParser.textEncode(parameters.get("contenido"));
+            parameters.remove("contenido");
+            parameters.put("contenido", text);
+        }
+
         this.parameters = parameters;
     }
 }

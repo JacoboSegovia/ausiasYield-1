@@ -1,3 +1,5 @@
+<%@page import="net.daw.helper.TextParser"%>
+<%@page import="java.net.URLDecoder"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -22,7 +24,9 @@
 
     RepositorioBean oRepositorioBean = (RepositorioBean) oContexto.getParametro();
     titulo = oRepositorioBean.getTitulo();
-    contenido = oRepositorioBean.getContenido();
+    contenido=TextParser.textDecode(oRepositorioBean.getContenido());
+    
+    
     
     id = oRepositorioBean.getId();
     usuario = Integer.toString(oRepositorioBean.getUsuario().getId());

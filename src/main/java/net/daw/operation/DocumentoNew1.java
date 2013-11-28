@@ -31,7 +31,7 @@ public class DocumentoNew1 implements Operation{
 
         } catch (NumberFormatException e) {
             oContexto.setVista("jsp/mensaje.jsp");
-            return "Tipo de dato incorrecto en uno de los campos del formulario";
+            return "<div class=\"alert alert-error\">Tipo de dato incorrecto en uno de los campos del formulario</div>";
         }
         oContexto.setVista("jsp/documento/form.jsp");
         return oDocumentoBean;

@@ -200,7 +200,6 @@
             }
             if (session.getAttribute("usuarioBean") != null) {
                 UsuarioBean oUsuarioBean = (UsuarioBean) session.getAttribute("usuarioBean");
-                System.out.println(oUsuarioBean.getTipoUsuario());
                 if (oUsuarioBean.getTipoUsuario().equals(TipoUsuario.Profesor)) {
         %>
         <td>    
