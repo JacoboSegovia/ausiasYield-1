@@ -63,8 +63,8 @@
         strValueBoton = "Guardar";
     }
 %>
-<h1><%=strTitulo%> de Incidencias</h1>
-<form class="semantic" action="Controller" method="post" id="comentForm">
+<h1><%=strTitulo%> Formulario de Incidencias</h1>
+<form class="form-horizontal" action="Controller" method="post" id="comentForm">
     <fieldset>
         <legend>Formulario de Incidencias</legend>
         <input type="hidden" name="id" value="<%=id%>" /> 
@@ -72,12 +72,16 @@
         <input type="hidden" name="method" value="<%=oContexto.getMetodo()%>" /> 
         <input type="hidden" name="phase" value="2" />
         <div class="control-group">
-            <label for="resumen">Resumen: </label> 
+            <label class="control-label" for="resumen">Resumen: </label> 
+            <div class="controls"> 
             <input <%=strControlEnabled%> id="resumen" name="resumen" type="text" size="30" maxlength="50" autofocus="autofocus" value="<%=resumen%>" /><br />
         </div>
+        </div>
         <div class="control-group">
-            <label for="cambios">Cambios: </label>
+            <label class="control-label" for="cambios">Cambios: </label>
+            <div class="controls">
             <textarea <%=strControlEnabled%> id="cambios" name="cambios" type="text" size="30" maxlength="50" ><%=cambios%></textarea><br />
+        </div>
         </div>
 
         
@@ -109,16 +113,22 @@
             </div>
         </div> 
             
-            <div>
-            <label for="fechaAlta">Fecha Alta: </label> 
+            <div  class="control-group">
+            <label class="control-label" for="fechaAlta">Fecha Alta: </label> 
+            <div class="controls">
             <input <%=strControlEnabled%> id="fechaAlta" name="fechaAlta" type="date" size="30" maxlength="50" value="<%=fechaAlta%>" /> <br />
         </div>
-        <div>
-            <label for="fechaResolucion">Fecha Resolución: </label> 
+         </div>
+        <div class="control-group">
+            <label class="control-label" for="fechaResolucion">Fecha Resolución: </label> 
+            <div class="controls">
             <input <%=strControlEnabled%> id="fechaResolucion" name="fechaResolucion" type="date" size="30" maxlength="50" value="<%=fechaResolucion%>" /> <br />
-        </div>           
-        <div>
+        </div> 
+        </div>         
+        <div class="control-group">
+            <div class="controls">
             <input type="submit" name="enviar" value="<%=strValueBoton%>" />
+        </div>
         </div>
     </fieldset>
 </form>

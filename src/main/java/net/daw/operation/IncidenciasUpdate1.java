@@ -8,7 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.daw.bean.IncidenciasBean;
+import net.daw.dao.EstadoDao;
 import net.daw.dao.IncidenciasDao;
+import net.daw.dao.UsuarioDao;
 import net.daw.helper.Contexto;
 import net.daw.parameter.IncidenciasParam;
 
@@ -39,6 +41,13 @@ public class IncidenciasUpdate1 implements Operation {
                 oContexto.setVista("jsp/mensaje.jsp");
                 return "Tipo de dato incorrecto en uno de los campos del formulario";
             }
+        UsuarioDao oUsuarioDao = new UsuarioDao(oContexto.getEnumTipoConexion());
+        EstadoDao oEstadoDao = new EstadoDao(oContexto.getEnumTipoConexion());
+       // RepositorioDao oRepositorioDao = new RepositorioDao(oContexto.getEnumTipoConexion());
+         oIncidenciasBean.setUsuario(oUsuarioDao.get(oIncidenciasBean.getUsuario()));
+            oIncidenciasBean.setEstado(oEstadoDao.get(oIncidenciasBean.getEstado()));
+           //oIncidenciasBean.setRepositorio(oRepositorioDao.get(oIncidenciasBean.getRepositorio()));
+
         return oIncidenciasBean;
     }
 }
