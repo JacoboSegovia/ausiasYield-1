@@ -26,7 +26,7 @@ import net.daw.parameter.IncidenciasParam;
         IncidenciasBean oIncidenciasBean = new IncidenciasBean();
         UsuarioDao oUsuarioDao = new UsuarioDao(oContexto.getEnumTipoConexion());
         EstadoDao oEstadoDao = new EstadoDao(oContexto.getEnumTipoConexion());
-       // RepositorioDao oRepositorioDao = new RepositorioDao(oContexto.getEnumTipoConexion());
+        RepositorioDao oRepositorioDao = new RepositorioDao(oContexto.getEnumTipoConexion());
         try {
             oIncidenciasBean = oIncidenciasParam.load(oIncidenciasBean);
             oIncidenciasBean.setUsuario(oUsuarioDao.get(oIncidenciasBean.getUsuario()));

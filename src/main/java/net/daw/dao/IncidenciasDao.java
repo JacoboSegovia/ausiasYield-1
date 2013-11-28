@@ -85,9 +85,9 @@ public class IncidenciasDao {
            RepositorioBean oRepositorioBean = new RepositorioBean();
             UsuarioBean oUsuarioBean = new UsuarioBean();
 
-            oEstadoBean.setId(Integer.parseInt(oMysql.getOne("incidencias", "id_estado", oIncidenciasBean.getId())));
-            oRepositorioBean.setId(Integer.parseInt(oMysql.getOne("incidencias", "id_repositorio", oIncidenciasBean.getId())));
-            oUsuarioBean.setId(Integer.parseInt(oMysql.getOne("incidencias", "id_usuario", oIncidenciasBean.getId())));
+            String strEstado = oMysql.getOne("incidencias", "id_estado", oIncidenciasBean.getId());
+            String strRepositorio=oMysql.getOne("incidencias", "id_repositorio", oIncidenciasBean.getId());
+            String strUsuario=oMysql.getOne("incidencias", "id_usuario", oIncidenciasBean.getId());
 
             oIncidenciasBean.setResumen(oMysql.getOne("incidencias", "resumen", oIncidenciasBean.getId()));
             oIncidenciasBean.setCambios(oMysql.getOne("incidencias", "cambios", oIncidenciasBean.getId()));
@@ -109,23 +109,26 @@ public class IncidenciasDao {
 
 
 
-
+            if(strEstado != null){
+                oEstadoBean.setId(Integer.parseInt(strEstado));
             EstadoDao oEstadoDao = new EstadoDao(enumTipoConexion);
-            RepositorioDao oRepositorioDao = new RepositorioDao(enumTipoConexion);
-            UsuarioDao oUsuarioDao = new UsuarioDao(enumTipoConexion);
-
-
-
             oEstadoBean = oEstadoDao.get(oEstadoBean);
-            oRepositorioBean = oRepositorioDao.get(oRepositorioBean);
-            oUsuarioBean = oUsuarioDao.get(oUsuarioBean);
-
-
-
-
             oIncidenciasBean.setEstado(oEstadoBean);
+            }
+            
+            if(strRepositorio != null){
+            oRepositorioBean.setId(Integer.parseInt(strRepositorio));
+            RepositorioDao oRepositorioDao = new RepositorioDao(enumTipoConexion);
+            oRepositorioBean = oRepositorioDao.get(oRepositorioBean);
             oIncidenciasBean.setRepositorio(oRepositorioBean);
+            }
+            
+            if(strUsuario != null){
+            oUsuarioBean.setId(Integer.parseInt(strUsuario));
+            UsuarioDao oUsuarioDao = new UsuarioDao(enumTipoConexion);
+            oUsuarioBean = oUsuarioDao.get(oUsuarioBean);
             oIncidenciasBean.setUsuario(oUsuarioBean);
+            }
 
             oMysql.desconexion();
         } catch (Exception e) {

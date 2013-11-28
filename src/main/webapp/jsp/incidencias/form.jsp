@@ -105,7 +105,7 @@
                 <input readonly="true" id="id_repositorio" class="input-mini"
                        name="id_repositorio" type="text" size="5" maxlength="5" value="<%=id_repositorio%>" />  
                 <input <%=strControlEnabled%> type="submit" name="searchingfor" value="repositorio" />
-                <span class="alert alert-success"><%=descEstado%></span>
+                <span class="alert alert-success"><%=descRepositorio%></span>
             </div>
         </div> 
             
