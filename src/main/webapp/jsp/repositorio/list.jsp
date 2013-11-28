@@ -201,7 +201,7 @@
                 <div class="btn-group">                    
                    <%
                         if (oContexto.getSearchingFor().equals("repositorio")) {
-                            out.print("<a class=\"btn btn-mini\" href=\"Controller?" + oContexto.getSerializedParamsExcept(new ArrayList<String>(Arrays.asList("class", "method", "phase", "id_repositorio", "id", "returnclass", "returnmethod", "returnphase", "searchingfor"))) + "class=" + oContexto.getClaseRetorno() + "&method=" + oContexto.getMetodoRetorno() + "&phase=" + oContexto.getFaseRetorno() + "&id_documento=" + oRepositorioBean.getId() + "&id=" + oContexto.getId() + "\"><i class=\"icon-ok\"></i></a>");
+                            out.print("<a class=\"btn btn-mini\" href=\"Controller?" + oContexto.getSerializedParamsExcept(new ArrayList<String>(Arrays.asList("class", "method", "phase", "id_repositorio", "id", "returnclass", "returnmethod", "returnphase", "searchingfor"))) + "class=" + oContexto.getClaseRetorno() + "&method=" + oContexto.getMetodoRetorno() + "&phase=" + oContexto.getFaseRetorno() + "&id_repositorio=" + oRepositorioBean.getId() + "&id=" + oContexto.getId() + "\"><i class=\"icon-ok\"></i></a>");
                         } else {
                             out.print("<a class=\"btn btn-mini\" href=\"Controller?class=repositorio&method=view&id=" + oRepositorioBean.getId() + "\"><i class=\"icon-eye-open\"></i></a>");
                             out.print("<a class=\"btn btn-mini\" href=\"Controller?class=repositorio&method=update&id=" + oRepositorioBean.getId() + "\"><i class=\"icon-pencil\"></i></a>");

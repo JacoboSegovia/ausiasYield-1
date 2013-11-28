@@ -13,7 +13,6 @@ import java.util.Date;
  */
 public class RepositorioBean {
 
-    
     private int id = 0;
     private String titulo = "";
     private String contenido = "";
@@ -27,11 +26,17 @@ public class RepositorioBean {
         this.lenguaje.setId(0);
         this.documento = new DocumentoBean();
         this.documento.setId(0);
-         this.usuario = new UsuarioBean();
+        this.usuario = new UsuarioBean();
         this.usuario.setId(0);
     }
 
     public RepositorioBean(int id) {
+        this.lenguaje = new LenguajeBean();
+        this.lenguaje.setId(0);
+        this.documento = new DocumentoBean();
+        this.documento.setId(0);
+        this.usuario = new UsuarioBean();
+        this.usuario.setId(0);
         this.id = id;
     }
 
@@ -74,7 +79,7 @@ public class RepositorioBean {
     public void setLenguaje(LenguajeBean lenguaje) {
         this.lenguaje = lenguaje;
     }
-    
+
     public DocumentoBean getDocumento() {
         return documento;
     }
