@@ -72,12 +72,12 @@
         <input type="hidden" name="method" value="<%=oContexto.getMetodo()%>" /> 
         <input type="hidden" name="phase" value="2" />
         <div class="control-group">
-            <label for="titulo">Resumen: </label> 
-            <input <%=strControlEnabled%> id="resumen" name="titulo" type="text" size="30" maxlength="50" autofocus="autofocus" value="<%=resumen%>" /><br />
+            <label for="resumen">Resumen: </label> 
+            <input <%=strControlEnabled%> id="resumen" name="resumen" type="text" size="30" maxlength="50" autofocus="autofocus" value="<%=resumen%>" /><br />
         </div>
         <div class="control-group">
-            <label for="contenido">Cambios: </label>
-            <textarea <%=strControlEnabled%> id="cambios" name="contenido" type="text" size="30" maxlength="50" ><%=cambios%></textarea><br />
+            <label for="cambios">Cambios: </label>
+            <textarea <%=strControlEnabled%> id="cambios" name="cambios" type="text" size="30" maxlength="50" ><%=cambios%></textarea><br />
         </div>
 
         
